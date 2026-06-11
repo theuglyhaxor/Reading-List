@@ -1,0 +1,8 @@
+# Book PDFs are hosted on Google Drive (too large for GitHub ~6.5 GB).
+# Download them from the link in README.md and place under Books/.
+Books/
+
+# scratch / OS
+*.tmp
+Thumbs.db
+.DS_Store
