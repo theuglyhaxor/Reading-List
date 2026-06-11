@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-import json, urllib.parse
+import json, urllib.parse, os, unicodedata
 from collections import Counter
+def _nfc(s): return unicodedata.normalize("NFC", s)
+DRIVE = {_nfc(k):v for k,v in json.load(open(r"d:/READING/_library_build/drive_links.json","r",encoding="utf-8")).items()}
 
 cr = json.load(open(r"d:/READING/_library_build/catalog_result.json","r",encoding="utf-8"))
 recs = [r for r in cr["records"] if r[0] != 99]   # cat,title,lang,genre,summary,newrel,pages
@@ -216,7 +218,10 @@ def anchor(s):
     a = "".join(ch if (ch.isalnum() or ch==" ") else "" for ch in s.lower()).strip()
     return a.replace(" ","-")
 def link(rel):
-    return "Books/" + urllib.parse.quote(rel)
+    fid = DRIVE.get(_nfc(os.path.basename(rel)))
+    if fid:
+        return "https://drive.google.com/file/d/%s/view?usp=sharing" % fid
+    return DRIVE_URL  # fallback: the shared folder
 
 total = len(recs)
 langs = Counter(r[2] for r in recs)
@@ -237,7 +242,7 @@ def build_en():
     A("> ")
     A("> ### ➤ **[Open the library on Google Drive](%s)**" % DRIVE_URL)
     A("> ")
-    A("> The clickable titles in the catalogue below point to local `Books/…` paths — download the `Books` folder from the Drive link above and keep this README beside it, and every link resolves.")
+    A("> **Every book title in the catalogue below links straight to its PDF on Google Drive** — click a title to open or download that single book, or use the folder link above to grab everything at once.")
     A("")
     A("**Languages:** %s &nbsp;•&nbsp; **Levels:** %s" % (
         ", ".join("%d %s" % (c,l) for l,c in langs.most_common()),
@@ -319,7 +324,7 @@ def build_bn():
     A("> ")
     A("> ### ➤ **[Google Drive-এ গ্রন্থাগার খুলুন](%s)**" % DRIVE_URL)
     A("> ")
-    A("> নিচের তালিকায় শিরোনামে ক্লিক করলে স্থানীয় `Books/…` পথ খোলে — উপরের Drive লিঙ্ক থেকে `Books` ফোল্ডারটি নামিয়ে এই README-র পাশে রাখলেই প্রতিটি লিঙ্ক কাজ করবে।")
+    A("> **নিচের তালিকার প্রতিটি বইয়ের শিরোনাম সরাসরি Google Drive-এ সেই PDF-এর সঙ্গে লিঙ্ক করা** — শিরোনামে ক্লিক করলেই বইটি খুলবে বা নামানো যাবে; অথবা উপরের ফোল্ডার লিঙ্ক থেকে একসঙ্গে সব নিন।")
     A("")
     A("**ভাষা:** %s &nbsp;•&nbsp; **স্তর:** %s" % (
         ", ".join("%d %s" % (c, LANG_BN.get(l,l)) for l,c in langs.most_common()),
