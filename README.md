@@ -648,7 +648,7 @@ Each shelf lists its books with **Level**, **Genre**, **Pages** and a **Summary*
 
 ## About the curator
 
-I'm **theuglyhaxor**. This library grew out of two long-running obsessions — radical politics and history on one side, security research and hacking on the other — and a simple belief that good books should be easy to find and free to read.
+I'm **theuglyhaxor**. This library grew out of two long-running obsessions — leftist politics and history on one side, security research and hacking on the other — and a simple belief that good books should be easy to find and free to read.
 
 What you see here is the shelf I actually read from: Marx and the Marxist tradition, the Indian and Bangladeshi communist and Naxalite movements, caste and Dalit writing, Kashmir and Palestine, Bengali literature, and a working cybersecurity library. I cleaned it up, gave every file its real title, sorted it by subject, tagged reading levels, and drew the maps above so a newcomer can find a way in instead of drowning in a folder of hundreds of PDFs.
 
